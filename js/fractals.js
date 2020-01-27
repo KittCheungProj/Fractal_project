@@ -29,34 +29,38 @@ let pyTree = function(x, y, size, angle){
         ctx.save();
       	ctx.translate(x1, y1);
       	ctx.rotate(leftAngle);
-      	ctx.fillRect(0, 0, leftSize/ 1.5, -leftsize /1.5);
+      	ctx.fillRect(0, 0, leftSize/ 1.5, -leftSize /1.5);
       	ctx.restore();
     }
+    let rightAngle = angle - Math.abs(leftAngle);   
+    let rightSize = size * Math.abs(1-(rightAngle/90));
+    let x2 =  x1 + Math.cos(rightAngle)* leftSize;
+    let y2 =  y1 + Math.sin(rightAngle)* leftSize;
     
-    //pyTree(rightX2, rightY2, rightSize, rightAngle)
-   // } else{
-   //     ctx.save();
-   // 	ctx.translate(x1, y1);
-   // 	ctx.rotate(leftAngle);
-   // 	ctx.fillRect(0, 0, size0, -size0);
-   // 	ctx.restore();
-//
-   // }
+    pyTree(x2, y2, rightSize, rightAngle)
+ 
+    if (leftSize > 50){
+        ctx.save();
+        ctx.translate(x2, y2);
+        ctx.rotate(rightAngle);
+        ctx.fillRect(0, 0, rightSize / 1.5 , -rightSize / 1.5);
+        ctx.restore();
 
-        
-    // }
+    }
+
     ctx.restore();
 }
 pyTree(width/2, height, size, 0)
 
 
 
-  //let rightAngle = angle-leftAngle;   
-    //let rightDiff = Math.abs(1 - leftDiff);    
-    //let rightSize = Math.sqrt(size*size*rightDiff);
+    //   let rightAngle = angle - Math.abs(leftAngle);   
+    // //let rightDiff = Math.abs(1 - leftDiff);    
+    //   let rightSize = size * Math.abs(1-(rightAngle/90))
+    //   //Math.sqrt(size*size*rightDiff);
 
-    //let leftX2 = 0;
-    //let     
+    // let x2 = x1 + leftSize + rightRize * Math.cos(rightAngle);
+    // let y2 = y1 - rightSize * Math.sin(rightAngle)    
     //let leftX2 = x - size * Math.cos(leftDiff*angle)
     //let leftY2 = y - size * Math.sin(leftDiff*angle)
     //let rightX2 = x + size + rightSize*Math.cos(rightDiff*angle)
