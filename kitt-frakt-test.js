@@ -40,19 +40,19 @@ function drawTree(x, y, size, angle) {
         ctx.fillRect(0, 0, size1, -size1);
         ctx.restore();
     }
-    let x2 = x0 + Math.cos(angle0) * size0,
-        y2= y0 + Math.sin(angle0) * size0,
-        size1 = Math.abs(Math.sin(branchAngleA) * size)
-        angle1 = angle0 + Math.PI / 2;
+    let x2 = x1 + Math.cos(angle1) * size1,
+        y2= y1 + Math.sin(angle1) * size1,
+        size2 = Math.abs(Math.sin(angleB) * size)
+        angle2 = angle1 + Math.PI / 2;
 
-    if(size1 > 0) {
-        tree(x2, y2, size1, angle1, size);
+    if(size1 > 10) {
+        drawTree(x2, y2, size2, angle2);
     }
     else {
         ctx.save();
-        ctx.translate(x1, y1);
-        ctx.rotate(angle1);
-        ctx.fillRect(0, 0, size1, -size1);
+        ctx.translate(x2, y2);
+        ctx.rotate(angle2);
+        ctx.fillRect(0, 0, size2, -size2);
         ctx.restore();
     }
 
