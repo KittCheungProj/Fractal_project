@@ -15,16 +15,25 @@ let pyTree = function(x, y, size, angle){
     ctx.fillStyle = "red";
     ctx.fillRect(0, 0, size, -size);
     
-    let leftSize = size*Math.abs(1-(leftAngle/90));
+    let leftSize = size * Math.abs(1-(leftAngle/90));
     let x1 = 0;
-    let y1 = -leftSize;
+    let y1 = -size;
     //let leftAngle = startAngle;
     //let leftDiff = Math.abs(1-(leftAngle/-90));
     
         
-    if (leftSize > 5){
-        pyTree(x1, y1, leftSize, leftAngle)
-        //pyTree(rightX2, rightY2, rightSize, rightAngle)
+    if (leftSize > 10){
+      pyTree(x1, y1, leftSize/1.5, leftAngle);
+
+    }else{
+        ctx.save();
+      	ctx.translate(x1, y1);
+      	ctx.rotate(leftAngle);
+      	ctx.fillRect(0, 0, leftSize/ 1.5, -leftsize /1.5);
+      	ctx.restore();
+    }
+    
+    //pyTree(rightX2, rightY2, rightSize, rightAngle)
    // } else{
    //     ctx.save();
    // 	ctx.translate(x1, y1);
@@ -35,10 +44,10 @@ let pyTree = function(x, y, size, angle){
    // }
 
         
-    }
+    // }
     ctx.restore();
 }
-pyTree(width/2-size/2, height, size, 0)
+pyTree(width/2, height, size, 0)
 
 
 
