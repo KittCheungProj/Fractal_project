@@ -3,39 +3,52 @@ let ctx = canvas.getContext("2d");
 width = canvas.width =window.innerWidth
 height = canvas.height = window.innerHeight
 
-let drawRect = function(x1, y1, size, size){
-    
-    ctx.beginPath();
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = "red";
-    ctx.fillRect(x1, y1, size, -size);
-    ctx.stroke();
-}
-
-let startAngle = 45; 
+//let startAngle = 0 + Math.random()*Math.PI/4*90;
+let leftAngle = -45 * Math.PI/180;
 let size = 100;
-let angle = Math.PI/180;
-let strokeWidth = 10;
-let startX = width/2-size/2;
-let startY = height-strokeWidth;
-let nrBlocks = 5;
- 
 
-drawRect(startX, startY, size, size)
-
-let calcSquares = function(x, y, size, startAngle, angle, limit){
-
-    let lengthOfBlock = Math.sqrt(size*size/2); 
+let pyTree = function(x, y, size, angle){
     
-    let leftX2 = x - size *Math.cos(startAngle*angle)
-    let leftY2 = y - size *Math.sin(startAngle*angle)
-    //let rightX2 = x + size + lengthOfBlock*Math.cos(startAngle*angle)
-    //let rightY2 = y - lengthOfBlock*Math.sin(startAngle*angle)
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle)
+    ctx.fillStyle = "red";
+    ctx.fillRect(0, 0, size, -size);
+    
+    let leftSize = size*Math.abs(1-(leftAngle/90));
+    let x1 = 0;
+    let y1 = -leftSize;
+    //let leftAngle = startAngle;
+    //let leftDiff = Math.abs(1-(leftAngle/-90));
+    
+        
+    if (leftSize > 5){
+        pyTree(x1, y1, leftSize, leftAngle)
+        //pyTree(rightX2, rightY2, rightSize, rightAngle)
+   // } else{
+   //     ctx.save();
+   // 	ctx.translate(x1, y1);
+   // 	ctx.rotate(leftAngle);
+   // 	ctx.fillRect(0, 0, size0, -size0);
+   // 	ctx.restore();
+//
+   // }
 
-    drawRect(leftX2, leftY2, size, size)
-    drawRect(rightX2, rightY2, size, size)
-
-
+        
+    }
+    ctx.restore();
 }
+pyTree(width/2-size/2, height, size, 0)
 
-calcSquares(startX, startY, size, startAngle, angle, nrBlocks)
+
+
+  //let rightAngle = angle-leftAngle;   
+    //let rightDiff = Math.abs(1 - leftDiff);    
+    //let rightSize = Math.sqrt(size*size*rightDiff);
+
+    //let leftX2 = 0;
+    //let     
+    //let leftX2 = x - size * Math.cos(leftDiff*angle)
+    //let leftY2 = y - size * Math.sin(leftDiff*angle)
+    //let rightX2 = x + size + rightSize*Math.cos(rightDiff*angle)
+    //let rightY2 = y - rightSize*Math.sin(rightDiff*angle)
