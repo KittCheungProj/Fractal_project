@@ -16,11 +16,11 @@ height = canvas.height = window.innerHeight
 
 
 let pyBlocks = function(x, y, size, angle, limit, color){
-    
+
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle)
-    ctx.fillStyle = color;
+    ctx.fillStyle = '\"#'+color+'\"';
     ctx.fillRect(0, 0, size, -size);
 
     let leftSize = (Math.abs(Math.cos(pyTree.leftAngle)*size));
@@ -30,10 +30,10 @@ let pyBlocks = function(x, y, size, angle, limit, color){
     let y1 = -size;
     let x2 = x1 + Math.cos(pyTree.leftAngle) * leftSize;
     let y2 = y1 + Math.sin(pyTree.leftAngle) * leftSize;
-    
+
         
-    if (limit > 0){
-      pyBlocks(x1, y1, leftSize, pyTree.leftAngle, limit-1);
+    if (limit > 0){      
+      pyBlocks(x1, y1, leftSize, pyTree.leftAngle, limit-1, color);
 
     }else{
         ctx.save();
@@ -44,7 +44,7 @@ let pyBlocks = function(x, y, size, angle, limit, color){
     }
 
     if(limit > 0){
-        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1)
+        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1, color);
     }else{
       ctx.save();
     	ctx.translate(x2, y2);
@@ -67,10 +67,34 @@ let pyTree = {
     // color: [[000000],[654321]],
     time: 0,
 }
+//let color = {
+//    r: "#654321",
+//    g: "#009a00",
+//    b: 
+//}
+
+let colorMap;
 let color = {
-    brown: "#654321",
-    green: "#009a00",
+    r: 0,
+    g: 0,
+    b: 0,
 }
+
+let rgbToHex = function (rgb) { 
+    var hex = Number(rgb).toString(16);
+    if (hex.length < 2) {
+         hex = "0" + hex;
+    }
+    return hex;
+  };
+
+let fullColorHex = function(r,g,b) {   
+    var red = rgbToHex(r);
+    var green = rgbToHex(g);
+    var blue = rgbToHex(b);
+    return red+green+blue;
+  };
+
 
 draw();
 
@@ -78,9 +102,27 @@ draw();
 		ctx.clearRect(0, 0, width, height);
         pyTree.leftAngle = -Math.PI/4 + Math.sin(pyTree.time += 0.01) * Math.PI/4;
         pyTree.rightAngle = pyTree.leftAngle + 90*Math.PI / 180;
-		pyBlocks(width/2, height-50, pyTree.size, 0, 8, color.brown);
+
+        if(color.r <255){
+            color.r += 5            
+        }else{
+            color.r = 0;
+        }
+        if(color.g <255){
+            color.g += 10
+        }else{
+            color.g = 0;
+        }
+        if(color.b <255){
+            color.b += 15 
+        }else{
+            color.b = 0;
+        }   
+       
+        colorMap = fullColorHex(color.r, color.g, color.b);
+
+		pyBlocks(width/2, height-50, pyTree.size, 0, 8, colorMap);
         requestAnimationFrame(draw);
-        //return rightAngle;
     }
-    
+
     
