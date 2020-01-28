@@ -4,60 +4,79 @@ width = canvas.width =window.innerWidth
 height = canvas.height = window.innerHeight
 
 
-let leftAngle = -70* Math.PI/180;
-let totalDegrees = 90*Math.PI/180;
-let rightAngle = leftAngle + Math.PI / 2;
+//let leftAngle = -330*Math.PI/180;
+//let rightAngle = leftAngle + 360*Math.PI / 180;
 //Math.abs(totalDegrees + leftAngle);
-let size = 100;
+
+//let size = 100;
+//let leftAngle = 0;
+//let rightAngle;
+//let t = 0;
 
 
-let pyTree = function(x, y, size, angle, limit){
+
+let pyBlocks = function(x, y, size, angle, limit, color){
     
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle)
-    ctx.fillStyle = "red";
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, size, -size);
 
-    
-    let leftDiff = Math.abs(1-(leftAngle/-totalDegrees));
-    console.log(leftDiff)
-    let leftSize = (Math.sqrt((size*size)*leftDiff));
+    let leftSize = (Math.abs(Math.cos(pyTree.leftAngle)*size));
+    let rightSize = Math.abs(Math.sin(pyTree.leftAngle)*size);
 
     let x1 = 0;
     let y1 = -size;
-
-    
-    
-    let rightDiff = (1-leftDiff);
-    console.log('r' + rightDiff)
-    let rightSize = Math.abs(Math.sqrt((size*size)*rightDiff));
-    let x2 = x1 + Math.cos(leftAngle) * leftSize;
-    let y2 = y1 + Math.sin(leftAngle) * leftSize;
+    let x2 = x1 + Math.cos(pyTree.leftAngle) * leftSize;
+    let y2 = y1 + Math.sin(pyTree.leftAngle) * leftSize;
     
         
     if (limit > 0){
-      pyTree(x1, y1, leftSize, leftAngle, limit-1);
+      pyBlocks(x1, y1, leftSize, pyTree.leftAngle, limit-1);
 
     }else{
         ctx.save();
       	ctx.translate(x1, y1);
-      	ctx.rotate(leftAngle);
+      	ctx.rotate(pyTree.leftAngle);
       	ctx.fillRect(0, 0, leftSize, -leftSize);
       	ctx.restore();
     }
 
     if(limit > 0){
-        pyTree(x2, y2, rightSize, rightAngle+ 0.18, limit-1)
+        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1)
     }else{
       ctx.save();
     	ctx.translate(x2, y2);
-    	ctx.rotate(rightAngle);
+    	ctx.rotate(pyTree.rightAngle);
     	ctx.fillRect(0, 0, rightSize, -rightSize);
     	ctx.restore();
    }
     ctx.restore();
 }
-pyTree(width/2, height, size, 0, 8)
 
+//let size = 100;
+//let leftAngle = 0;
+//let rightAngle;
+//let t = 0;
 
+let pyTree = {
+    leftAngle: 0,
+    rightAngle: 0,
+    size: 100,
+    color: [[0,0,0],[255,0,0]],
+    time: 0,
+}
+
+draw();
+
+	function draw() {
+		ctx.clearRect(0, 0, width, height);
+        pyTree.leftAngle = -Math.PI/4 + Math.sin(pyTree.time += 0.01) * Math.PI/4;
+        pyTree.rightAngle = pyTree.leftAngle + 90*Math.PI / 180;
+		pyBlocks(width/2, height-50, pyTree.size, 0, 8, pyTree.color[0][1])
+        requestAnimationFrame(draw);
+        //return rightAngle;
+    }
+    
+    
