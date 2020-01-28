@@ -64,8 +64,13 @@ let pyTree = {
     leftAngle: 0,
     rightAngle: 0,
     size: 100,
-    color: [[0,0,0],[255,0,0]],
+    // color: [[000000],[654321]],
     time: 0,
+}
+let color = {
+    brown: "#654321",
+    green: "#009a00",
+
 }
 
 draw();
@@ -74,7 +79,7 @@ draw();
 		ctx.clearRect(0, 0, width, height);
         pyTree.leftAngle = -Math.PI/4 + Math.sin(pyTree.time += 0.01) * Math.PI/4;
         pyTree.rightAngle = pyTree.leftAngle + 90*Math.PI / 180;
-		pyBlocks(width/2, height-50, pyTree.size, 0, 8, pyTree.color[0][1])
+		pyBlocks(width/2, height-50, pyTree.size, 0, 8, color.brown)
         requestAnimationFrame(draw);
         //return rightAngle;
     }
