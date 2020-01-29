@@ -1,18 +1,22 @@
+
+/*
+Creating our canvas in html and connecting the canvas with our javascript code
+*/
 let canvas = document.getElementById("Canvas");
 let ctx = canvas.getContext("2d");
 width = canvas.width = window.innerWidth
 height = canvas.height = window.innerHeight
 
+
 let i = 0;
 let r = 0, g = 0, b = 0;
-//let colorMap = [r, g, b];
 
 
-let pyBlocks = function(x, y, size, angle, limit, color){
+let pyBlocks = function(x, y, size, angle, limit){
 
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(angle)
+    ctx.rotate(angle);
 
     ctx.fillRect(0, 0, size, -size);
 
@@ -24,29 +28,9 @@ let pyBlocks = function(x, y, size, angle, limit, color){
     let x2 = x1 + Math.cos(pyTree.leftAngle) * leftSize;
     let y2 = y1 + Math.sin(pyTree.leftAngle) * leftSize;
 
-
-    // if (colorMap[0] < 255 && limit ==2){
-    //     colorMap[0] += 5;
-    // } else {
-    //     colorMap[0] = 0;
-    // }
-    // if(colorMap[1] < 255 && limit == 5){
-    //     colorMap[1] += 10;
-    // }else{
-    //     colorMap[1] = 0;
-    // }
-    // if (colorMap[2] < 255){
-    //     colorMap[2] += 15;
-    // }else{
-    //     colorMap[2] = 0;
-
-    // }
-
     if (limit > 0){
       pyBlocks(x1, y1, leftSize, pyTree.leftAngle, limit-1);
-
-
-
+    
     }else{
         ctx.save();
       	ctx.translate(x1, y1);
@@ -55,9 +39,9 @@ let pyBlocks = function(x, y, size, angle, limit, color){
       	ctx.restore();
     }
 
-
     if(limit > 0){
-        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1, color);
+        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1);
+    
     }else{
         ctx.save();
     	ctx.translate(x2, y2);
@@ -78,31 +62,6 @@ let pyTree = {
     size: 100,
     time: 0,
 }
-
-
-let colorMap;
-let color = {
-    r: 0,
-    g: 0,
-    b: 0,
-}
-
-
-let rgbToHex = function (rgb) { 
-    var hex = Number(rgb).toString(16);
-    if (hex.length < 2) {
-         hex = "0" + hex;
-    }
-    return hex;
-  };
-
-let fullColorHex = function(r,g,b) {   
-    var red = rgbToHex(r);
-    var green = rgbToHex(g);
-    var blue = rgbToHex(b);
-    return red+green+blue;
-  };
-
 
 draw();
 
