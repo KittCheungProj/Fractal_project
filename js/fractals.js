@@ -7,11 +7,13 @@ let i = 0;
 let r = 0, g = 0, b = 0;
 //let colorMap = [r, g, b];
 
-let pyBlocks = function(x, y, size, angle, limit){
-    
+
+let pyBlocks = function(x, y, size, angle, limit, color){
+
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle)
+
     ctx.fillRect(0, 0, size, -size);
 
     let leftSize = (Math.abs(Math.cos(pyTree.leftAngle)*size));
@@ -21,6 +23,7 @@ let pyBlocks = function(x, y, size, angle, limit){
     let y1 = -size;
     let x2 = x1 + Math.cos(pyTree.leftAngle) * leftSize;
     let y2 = y1 + Math.sin(pyTree.leftAngle) * leftSize;
+
 
     // if (colorMap[0] < 255 && limit ==2){
     //     colorMap[0] += 5;
@@ -43,6 +46,7 @@ let pyBlocks = function(x, y, size, angle, limit){
       pyBlocks(x1, y1, leftSize, pyTree.leftAngle, limit-1);
 
 
+
     }else{
         ctx.save();
       	ctx.translate(x1, y1);
@@ -53,7 +57,7 @@ let pyBlocks = function(x, y, size, angle, limit){
 
 
     if(limit > 0){
-        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1)
+        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1, color);
     }else{
         ctx.save();
     	ctx.translate(x2, y2);
@@ -74,9 +78,34 @@ let pyTree = {
     size: 100,
     time: 0,
 }
-    
+
+
+let colorMap;
+let color = {
+    r: 0,
+    g: 0,
+    b: 0,
+}
+
+
+let rgbToHex = function (rgb) { 
+    var hex = Number(rgb).toString(16);
+    if (hex.length < 2) {
+         hex = "0" + hex;
+    }
+    return hex;
+  };
+
+let fullColorHex = function(r,g,b) {   
+    var red = rgbToHex(r);
+    var green = rgbToHex(g);
+    var blue = rgbToHex(b);
+    return red+green+blue;
+  };
+
 
 draw();
+
 
 function draw() {
     ctx.clearRect(0, 0, width, height);
