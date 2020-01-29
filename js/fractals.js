@@ -8,10 +8,17 @@ width = canvas.width = window.innerWidth
 height = canvas.height = window.innerHeight
 
 
-let i = 0;
-let r = 0, g = 0, b = 0;
+// let i = 0;
+// let r = 0, g = 0, b = 0;
 
-
+/*
+pyBlock() -> void
+Parameter: x,y,size = draw rectangle
+            angle = degrees of rotation of rectangle
+            limit = how many times rectangles shall be created
+returns: a rotated rectangle
+Rtype: void
+*/
 let pyBlocks = function(x, y, size, angle, limit){
 
     ctx.save();
@@ -51,9 +58,13 @@ let pyBlocks = function(x, y, size, angle, limit){
     }
     ctx.restore();
 }
-function rgb(r, g, b){
-    return "rgb(" + r +"," + g + "," + b +")"
-}
+
+/*
+Parameter: r, g, b
+*/
+// function rgb(r, g, b){
+//     return "rgb(" + r +"," + g + "," + b +")"
+// }
 
 
 let pyTree = {
@@ -76,76 +87,76 @@ function draw() {
     requestAnimationFrame(draw);
 }
 
-function hsvToRgb(h, s, v) {
-    var r, g, b;
-    var i;
-    var f, p, q, t;
+// function hsvToRgb(h, s, v) {
+//     var r, g, b;
+//     var i;
+//     var f, p, q, t;
      
-    // Make sure our arguments stay in-range
-    h = h % 360;
-    s = Math.max(0, Math.min(100, s));
-    v = Math.max(0, Math.min(100, v));
+//     // Make sure our arguments stay in-range
+//     h = h % 360;
+//     s = Math.max(0, Math.min(100, s));
+//     v = Math.max(0, Math.min(100, v));
      
-    // We accept saturation and value arguments from 0 to 100 because that's
-    // how Photoshop represents those values. Internally, however, the
-    // saturation and value are calculated from a range of 0 to 1. We make
-    // That conversion here.
-    s /= 100;
-    v /= 100;
+//     // We accept saturation and value arguments from 0 to 100 because that's
+//     // how Photoshop represents those values. Internally, however, the
+//     // saturation and value are calculated from a range of 0 to 1. We make
+//     // That conversion here.
+//     s /= 100;
+//     v /= 100;
      
-    if(s == 0) {
-        // Achromatic (grey)
-        r = g = b = v;
-        return [
-            Math.round(r * 255), 
-            Math.round(g * 255), 
-            Math.round(b * 255)
-        ];
-    }
+//     if(s == 0) {
+//         // Achromatic (grey)
+//         r = g = b = v;
+//         return [
+//             Math.round(r * 255), 
+//             Math.round(g * 255), 
+//             Math.round(b * 255)
+//         ];
+//     }
      
-    h /= 60; // sector 0 to 5
-    i = Math.floor(h);
-    f = h - i; // factorial part of h
-    p = v * (1 - s);
-    q = v * (1 - s * f);
-    t = v * (1 - s * (1 - f));
+//     h /= 60; // sector 0 to 5
+//     i = Math.floor(h);
+//     f = h - i; // factorial part of h
+//     p = v * (1 - s);
+//     q = v * (1 - s * f);
+//     t = v * (1 - s * (1 - f));
      
-    switch(i % 6) {
-        case 0:
-            r = v;
-            g = t;
-            b = p;
-            break;
+//     switch(i % 6) {
+//         case 0:
+//             r = v;
+//             g = t;
+//             b = p;
+//             break;
      
-        case 1:
-            r = q;
-            g = v;
-            b = p;
-            break;
+//         case 1:
+//             r = q;
+//             g = v;
+//             b = p;
+//             break;
      
-        case 2:
-            r = p;
-            g = v;
-            b = t;
-            break;
+//         case 2:
+//             r = p;
+//             g = v;
+//             b = t;
+//             break;
      
-        case 3:
-            r = p;
-            g = q;
-            b = v;
-            break;
+//         case 3:
+//             r = p;
+//             g = q;
+//             b = v;
+//             break;
      
-        case 4:
-            r = t;
-            g = p;
-            b = v;
-            break;
+//         case 4:
+//             r = t;
+//             g = p;
+//             b = v;
+//             break;
      
-        case 5:
-            r = v;
-            g = p;
-            b = q;
-    }
+//         case 5:
+//             r = v;
+//             g = p;
+//             b = q;
+//     }
      
-    return `rgb(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)})`;
-}
+//     return `rgb(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)})`;
+// }
