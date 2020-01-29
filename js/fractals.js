@@ -23,14 +23,13 @@ Rtype: void
 let i = 0;
 let r = 0, g = 0, b = 0;
 
-let colorMap = ['#542404', '#843c02', '#9a3c02', '#b83c02', '#268b04', '#26cb04', '#26cb65', '#f24cf1' ]
+let colorMap = ['#542404', '#843c02', '#9a3c02', '#b83c02', '#268b04', '#26cb04', '#26cb65', '#f24cf1', '#ff0000']
 
 let pyBlocks = function(x, y, size, angle, limit, color){
-    console.log(color)
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle)
-    ctx.fillstyle = color;
+    ctx.fillStyle = color;
 
     ctx.fillRect(0, 0, size, -size);
 
@@ -45,8 +44,20 @@ let pyBlocks = function(x, y, size, angle, limit, color){
 
     if (size > 90){
         color = colorMap[1]
-    }else if(size >80 && size <90){
+    }else if(size >70 && size <90){
         color = colorMap[2]
+    }else if(size >60 && size <70){
+        color = colorMap[3]
+    }else if(size >50 && size <60){
+        color = colorMap[4]
+    }else if(size >40 && size <50){
+        color = colorMap[5]
+    }else if(size >30 && size <40){
+        color = colorMap[6]
+    }else if(size >20 && size <30){
+        color = colorMap[7]
+    }else if(size >10 && size <20){
+        color = colorMap[8]
     }
 
     if (limit > 0){
@@ -61,7 +72,7 @@ let pyBlocks = function(x, y, size, angle, limit, color){
     }
 
     if(limit > 0){
-        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1);
+        pyBlocks(x2, y2, rightSize, pyTree.rightAngle, limit-1, color);
     
     }else{
         ctx.save();
@@ -96,9 +107,8 @@ function draw() {
     ctx.clearRect(0, 0, width, height);
     pyTree.leftAngle = -Math.PI/4 + Math.sin(pyTree.time += 0.01) * Math.PI/4;
     pyTree.rightAngle = pyTree.leftAngle + 90*Math.PI / 180;
-    //ctx.fillStyle = hsvToRgb(i, 100, 100);
-    //i++;
-    pyBlocks(width/2, height-50, pyTree.size, 0, 8, colorMap[0]);
+    ctx.fillStyle = colorMap[1];
+    pyBlocks(width/2, height-50, pyTree.size, 0, 8);
     requestAnimationFrame(draw);
 }
 
